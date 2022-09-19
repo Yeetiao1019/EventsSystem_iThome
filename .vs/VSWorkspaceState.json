@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\EventsSystem_iThome"
+    "\\EventsSystem_iThome",
+    "\\EventsSystem_iThome\\Models",
+    "\\EventsSystem_iThome\\Models\\Events",
+    "\\EventsSystem_iThome\\wwwroot"
   ],
+  "SelectedNode": "\\EventsSystem_iThome\\bin",
   "PreviewInSolutionExplorer": false
 }
