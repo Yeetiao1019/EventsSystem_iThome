@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,7 +9,9 @@ namespace EventsSystem_iThome.Models
 {
     public class Events
     {
-        public int Id { get; set; }
+        public int Id { get; set; }  
+        [Required]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "最少輸入 5 字元，最多輸入 50 字元")]
         public string Title { get; set; }
         [Column(TypeName = "datetime2")]
         public DateTime SaleTimeStart { get; set; }
@@ -18,13 +21,17 @@ namespace EventsSystem_iThome.Models
         public DateTime ProgressTimeStart { get; set; }
         [Column(TypeName = "datetime2")]
         public DateTime ProgressTimeEnd { get; set; }
+        [Required]
+        [StringLength(50, MinimumLength = 5, ErrorMessage = "最少輸入 5 字元，最多輸入 50 字元")]
         public string SimpleIntro { get; set; }
         public int CategoryId { get; set; }
         [Column(TypeName = "datetime2")]
         public DateTime CreateTime { get; set; }
+        [StringLength(100)]
         public string CreateUser { get; set; }
         [Column(TypeName = "datetime2")]
         public DateTime UpdateTime { get; set; }
+        [StringLength(100)]
         public string UpdateUser { get; set; }
 
         public EventsInfo EventsInfo { get; set; }  // 一對一
