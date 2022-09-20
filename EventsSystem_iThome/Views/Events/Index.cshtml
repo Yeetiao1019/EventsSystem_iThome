@@ -1,0 +1,95 @@
+﻿@model IEnumerable<EventsSystem_iThome.Models.Events>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaleTimeStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaleTimeEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProgressTimeStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProgressTimeEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SimpleIntro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreateUser)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaleTimeStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaleTimeEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgressTimeStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProgressTimeEnd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SimpleIntro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateUser)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateUser)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
