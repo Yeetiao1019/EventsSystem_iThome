@@ -14,6 +14,22 @@ namespace EventsSystem_iThome.Models
                 .HasOne<EventsInfo>(e => e.EventsInfo)
                 .WithOne(ei => ei.Events)
                 .HasForeignKey<EventsInfo>(ei => ei.EventsInfoOfEventsId);
+
+            modelBuilder.Entity<EventsInfo>()
+                .Property(ei => ei.PersonalSite)
+                .HasMaxLength(2090)
+                .IsRequired(true);
+
+            modelBuilder.Entity<EventsInfo>()
+                .Property(ei => ei.Location)
+                .HasMaxLength(100)
+                .IsRequired(true);
+
+            modelBuilder.Entity<EventsInfo>()
+                .Property(ei => ei.FullIntro)
+                .HasMaxLength(1000)
+                .IsRequired(true);
+            
         }
 
         public DbSet<Events> Events { get; set; }
