@@ -4,14 +4,16 @@ using EventsSystem_iThome.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EventsSystem_iThome.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220921125258_RemoveEventsNEventsInfoRelation")]
+    partial class RemoveEventsNEventsInfoRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,9 +159,6 @@ namespace EventsSystem_iThome.Migrations
                     b.Property<int>("EventsApplicationQty")
                         .HasColumnType("int");
 
-                    b.Property<int>("EventsInfoOfEventsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("FullIntro")
                         .HasColumnType("nvarchar(max)");
 
@@ -170,9 +169,6 @@ namespace EventsSystem_iThome.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EventsInfoId");
-
-                    b.HasIndex("EventsInfoOfEventsId")
-                        .IsUnique();
 
                     b.ToTable("EventsInfo");
                 });
@@ -188,22 +184,9 @@ namespace EventsSystem_iThome.Migrations
                     b.Navigation("Events");
                 });
 
-            modelBuilder.Entity("EventsSystem_iThome.Models.EventsInfo", b =>
-                {
-                    b.HasOne("EventsSystem_iThome.Models.Events", "Events")
-                        .WithOne("EventsInfo")
-                        .HasForeignKey("EventsSystem_iThome.Models.EventsInfo", "EventsInfoOfEventsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Events");
-                });
-
             modelBuilder.Entity("EventsSystem_iThome.Models.Events", b =>
                 {
                     b.Navigation("EventsImage");
-
-                    b.Navigation("EventsInfo");
                 });
 #pragma warning restore 612, 618
         }

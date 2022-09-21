@@ -14,7 +14,7 @@ namespace EventsSystem_iThome.Models
         public string Location { get; set; }
         public string FullIntro { get; set; }
 
-        public int EventsId { get; set; }
+        public int EventsInfoOfEventsId { get; set; }
         public Events Events { get; set; }      //一對一
     }
 }
