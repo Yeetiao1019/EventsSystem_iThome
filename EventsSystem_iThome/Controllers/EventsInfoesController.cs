@@ -6,27 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using EventsSystem_iThome.Models;
-using EventsSystem_iThome.ViewModels;
-using AutoMapper;
 
 namespace EventsSystem_iThome.Controllers
 {
-    public class EventsController : Controller
+    public class EventsInfoesController : Controller
     {
         private readonly AppDbContext _context;
 
-        public EventsController(AppDbContext context)
+        public EventsInfoesController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: Events
+        // GET: EventsInfoes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.ToListAsync());
+            var appDbContext = _context.EventsInfo.Include(e => e.Events);
+            return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Events/Details/5
+        // GET: EventsInfoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,50 +33,42 @@ namespace EventsSystem_iThome.Controllers
                 return NotFound();
             }
 
-            var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (events == null)
+            var eventsInfo = await _context.EventsInfo
+                .Include(e => e.Events)
+                .FirstOrDefaultAsync(m => m.EventsInfoId == id);
+            if (eventsInfo == null)
             {
                 return NotFound();
             }
 
-            return View(events);
+            return View(eventsInfo);
         }
 
-        // GET: Events/Create
+        // GET: EventsInfoes/Create
         public IActionResult Create()
         {
+            ViewData["EventsInfoOfEventsId"] = new SelectList(_context.Events, "Id", "SimpleIntro");
             return View();
         }
 
-        // POST: Events/Create
+        // POST: EventsInfoes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(EventsCreateViewModel model)
+        public async Task<IActionResult> Create([Bind("EventsInfoId,ApplicationLimitedQty,EventsApplicationQty,PersonalSite,Location,FullIntro,EventsInfoOfEventsId")] EventsInfo eventsInfo)
         {
             if (ModelState.IsValid)
             {
-                model.CategoryId = (int)model.EventsCategoryEnum;
-                model.CreateUser = "admin";
-
-                var mapperConfig = new MapperConfiguration(cfg =>
-                cfg.CreateMap<EventsCreateViewModel, Events>());
-
-                var mapper = mapperConfig.CreateMapper();
-                var events = mapper.Map<Events>(model);
-
-                _context.Add(events);
+                _context.Add(eventsInfo);
                 await _context.SaveChangesAsync();
-
-                return RedirectToAction("Details", events);
+                return RedirectToAction(nameof(Index));
             }
-
-            return BadRequest();
+            ViewData["EventsInfoOfEventsId"] = new SelectList(_context.Events, "Id", "SimpleIntro", eventsInfo.EventsInfoOfEventsId);
+            return View(eventsInfo);
         }
 
-        // GET: Events/Edit/5
+        // GET: EventsInfoes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -85,22 +76,23 @@ namespace EventsSystem_iThome.Controllers
                 return NotFound();
             }
 
-            var events = await _context.Events.FindAsync(id);
-            if (events == null)
+            var eventsInfo = await _context.EventsInfo.FindAsync(id);
+            if (eventsInfo == null)
             {
                 return NotFound();
             }
-            return View(events);
+            ViewData["EventsInfoOfEventsId"] = new SelectList(_context.Events, "Id", "SimpleIntro", eventsInfo.EventsInfoOfEventsId);
+            return View(eventsInfo);
         }
 
-        // POST: Events/Edit/5
+        // POST: EventsInfoes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,SaleTimeStart,SaleTimeEnd,ProgressTimeStart,ProgressTimeEnd,SimpleIntro,CategoryId,CreateTime,CreateUser,UpdateTime,UpdateUser")] EventsCreateViewModel events)
+        public async Task<IActionResult> Edit(int id, [Bind("EventsInfoId,ApplicationLimitedQty,EventsApplicationQty,PersonalSite,Location,FullIntro,EventsInfoOfEventsId")] EventsInfo eventsInfo)
         {
-            if (id != events.Id)
+            if (id != eventsInfo.EventsInfoId)
             {
                 return NotFound();
             }
@@ -109,12 +101,12 @@ namespace EventsSystem_iThome.Controllers
             {
                 try
                 {
-                    _context.Update(events);
+                    _context.Update(eventsInfo);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventsExists(events.Id))
+                    if (!EventsInfoExists(eventsInfo.EventsInfoId))
                     {
                         return NotFound();
                     }
@@ -125,10 +117,11 @@ namespace EventsSystem_iThome.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(events);
+            ViewData["EventsInfoOfEventsId"] = new SelectList(_context.Events, "Id", "SimpleIntro", eventsInfo.EventsInfoOfEventsId);
+            return View(eventsInfo);
         }
 
-        // GET: Events/Delete/5
+        // GET: EventsInfoes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -136,30 +129,31 @@ namespace EventsSystem_iThome.Controllers
                 return NotFound();
             }
 
-            var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (events == null)
+            var eventsInfo = await _context.EventsInfo
+                .Include(e => e.Events)
+                .FirstOrDefaultAsync(m => m.EventsInfoId == id);
+            if (eventsInfo == null)
             {
                 return NotFound();
             }
 
-            return View(events);
+            return View(eventsInfo);
         }
 
-        // POST: Events/Delete/5
+        // POST: EventsInfoes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var events = await _context.Events.FindAsync(id);
-            _context.Events.Remove(events);
+            var eventsInfo = await _context.EventsInfo.FindAsync(id);
+            _context.EventsInfo.Remove(eventsInfo);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EventsExists(int id)
+        private bool EventsInfoExists(int id)
         {
-            return _context.Events.Any(e => e.Id == id);
+            return _context.EventsInfo.Any(e => e.EventsInfoId == id);
         }
     }
 }

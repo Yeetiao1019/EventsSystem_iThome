@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "SSZffu1POjhkFs5gM3o0vjQWwj2HtEnGKu7JYrNnS73IWmdAU0su6zWoQvZWcNYUGcQelV4r95oGMzfqY+2s6g==",
+  "dgSpecHash": "rXlizP8TWzUFX5aDtJVYR8X2VOyw7GJBP79HqM4k3jKV97y6IbZgVzqN+n1A/A+Pew20r7rBh45Xo/sUsu1yfw==",
   "success": true,
   "projectFilePath": "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\陳沂\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
     "C:\\Users\\陳沂\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\陳沂\\.nuget\\packages\\microsoft.aspnetcore.diagnostics.entityframeworkcore\\5.0.17\\microsoft.aspnetcore.diagnostics.entityframeworkcore.5.0.17.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
