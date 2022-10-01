@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EventsSystem_iThome.Models.Events>
+﻿@model EventsSystem_iThome.ViewModels.EventsListViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,83 +13,78 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SaleTimeStart)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].SaleTimeStart)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SaleTimeEnd)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].SaleTimeEnd)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProgressTimeStart)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].ProgressTimeStart)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProgressTimeEnd)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].ProgressTimeEnd)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SimpleIntro)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].SimpleIntro)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].CategoryId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateTime)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].EventsInfo.ApplicationLimitedQty)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreateUser)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].EventsInfo.EventsApplicationQty)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UpdateTime)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpdateUser)
+                @Html.DisplayNameFor(model => model.EventsCollection.ToList()[0].EventsInfo.Location)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SaleTimeStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SaleTimeEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProgressTimeStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProgressTimeEnd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SimpleIntro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CategoryId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreateUser)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpdateUser)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.EventsCollection)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaleTimeStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaleTimeEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProgressTimeStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProgressTimeEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SimpleIntro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventsInfo.ApplicationLimitedQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventsInfo.EventsApplicationQty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventsInfo.Location)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

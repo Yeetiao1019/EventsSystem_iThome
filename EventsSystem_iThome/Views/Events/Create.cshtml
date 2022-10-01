@@ -43,8 +43,28 @@
                 <input asp-for="SimpleIntro" class="form-control" />
                 <span asp-validation-for="SimpleIntro" class="text-danger"></span>
             </div>
-            <div class="form-group">                
+            <div class="form-group">
                 <select asp-for="EventsCategoryEnum" asp-items="Html.GetEnumSelectList<EventsCategoryEnum>()"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventsInfo.ApplicationLimitedQty" class="control-label"></label>
+                <input asp-for="EventsInfo.ApplicationLimitedQty" class="form-control" />
+                <span asp-validation-for="EventsInfo.ApplicationLimitedQty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventsInfo.PersonalSite" class="control-label"></label>
+                <input asp-for="EventsInfo.PersonalSite" class="form-control" />
+                <span asp-validation-for="EventsInfo.PersonalSite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventsInfo.Location" class="control-label"></label>
+                <input asp-for="EventsInfo.Location" class="form-control" />
+                <span asp-validation-for="EventsInfo.Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventsInfo.FullIntro" class="control-label"></label>
+                <input asp-for="EventsInfo.FullIntro" class="form-control" />
+                <span asp-validation-for="EventsInfo.FullIntro" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

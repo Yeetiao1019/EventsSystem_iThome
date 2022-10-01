@@ -14,16 +14,24 @@ namespace EventsSystem_iThome.Controllers
     public class EventsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IEventsRepository _eventsRepository;
 
-        public EventsController(AppDbContext context)
+        public EventsController(AppDbContext context,IEventsRepository eventsRepository)
         {
             _context = context;
+            _eventsRepository = eventsRepository;
         }
 
         // GET: Events
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.ToListAsync());
+            var events = _eventsRepository.GetEvents();
+            EventsListViewModel EventsListViewModel = new EventsListViewModel()
+            {
+                EventsCollection = events
+            };
+
+            return View(EventsListViewModel);
         }
 
         // GET: Events/Details/5
