@@ -1,36 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj": {}
+    "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/EventsSystem_iThome.csproj": {}
   },
   "projects": {
-    "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj": {
+    "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/EventsSystem_iThome.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj",
+        "projectUniqueName": "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/EventsSystem_iThome.csproj",
         "projectName": "EventsSystem_iThome",
-        "projectPath": "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj",
-        "packagesPath": "C:\\Users\\陳沂\\.nuget\\packages\\",
-        "outputPath": "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\obj\\",
+        "projectPath": "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/EventsSystem_iThome.csproj",
+        "packagesPath": "/Users/yee/.nuget/packages/",
+        "outputPath": "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\陳沂\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/yee/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net5.0"
+          "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "G:\\NugetPkg": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net6.0": {
+            "targetAlias": "net6.0",
             "projectReferences": {}
           }
         },
@@ -41,8 +35,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
@@ -87,7 +81,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -99,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.401/RuntimeIdentifierGraph.json"
         }
       }
     }

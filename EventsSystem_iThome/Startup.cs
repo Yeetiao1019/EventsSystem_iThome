@@ -28,7 +28,7 @@ namespace EventsSystem_iThome
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IEventsRepository, MockEventsRepository>();
+            services.AddScoped<IEventsRepository, EventsRepository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
