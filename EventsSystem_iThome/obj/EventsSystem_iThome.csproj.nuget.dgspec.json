@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/EventsSystem_iThome.csproj": {}
+    "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj": {}
   },
   "projects": {
-    "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/EventsSystem_iThome.csproj": {
+    "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/EventsSystem_iThome.csproj",
+        "projectUniqueName": "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj",
         "projectName": "EventsSystem_iThome",
-        "projectPath": "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/EventsSystem_iThome.csproj",
-        "packagesPath": "/Users/yee/.nuget/packages/",
-        "outputPath": "/Users/yee/Projects/EventsSystem_iThome/EventsSystem_iThome/obj/",
+        "projectPath": "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\EventsSystem_iThome.csproj",
+        "packagesPath": "C:\\Users\\陳沂\\.nuget\\packages\\",
+        "outputPath": "S:\\Project\\EventsSystem_iThome\\EventsSystem_iThome\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/yee/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\陳沂\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "G:\\NugetPkg": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,39 +46,39 @@
           "dependencies": {
             "AutoMapper": {
               "target": "Package",
-              "version": "[11.0.1, )"
+              "version": "[12.0.0, )"
             },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.17, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[5.0.17, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.17, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
-              "version": "[5.0.17, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[5.0.17, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[5.0.17, )"
+              "version": "[6.0.9, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[5.0.2, )"
+              "version": "[6.0.10, )"
             }
           },
           "imports": [
@@ -94,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.401/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
