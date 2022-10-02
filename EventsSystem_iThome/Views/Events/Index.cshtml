@@ -1,4 +1,4 @@
-﻿@model EventsSystem_iThome.ViewModels.EventsListViewModel
+﻿@model EventsListViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -68,7 +68,7 @@
                     @Html.DisplayFor(modelItem => item.SimpleIntro)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryId)
+                    @Enum.GetName(typeof(EventsCategoryEnum),item.CategoryId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EventsInfo.ApplicationLimitedQty)

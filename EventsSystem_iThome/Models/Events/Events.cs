@@ -24,6 +24,7 @@ namespace EventsSystem_iThome.Models
         [Required]
         [StringLength(50, MinimumLength = 5, ErrorMessage = "最少輸入 5 字元，最多輸入 50 字元")]
         public string SimpleIntro { get; set; }
+        [Display(Name = "活動類型")]
         public int CategoryId { get; set; }
         [Column(TypeName = "datetime2")]
         public DateTime CreateTime { get; set; }
