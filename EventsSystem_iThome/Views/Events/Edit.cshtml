@@ -1,4 +1,5 @@
-﻿@model EventsSystem_iThome.Models.Events
+﻿@model EventsEditViewModel
+@using EventsSystem_iThome.Enum
 
 @{
     ViewData["Title"] = "Edit";
@@ -44,29 +45,29 @@
                 <span asp-validation-for="SimpleIntro" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                <select asp-for="EventsCategoryEnum" asp-items="Html.GetEnumSelectList<EventsCategoryEnum>()"></select>
+            </div>
+            <input type="hidden" asp-for="EventsInfo.EventsInfoOfEventsId" />
+            <input type="hidden" asp-for="EventsInfo.EventsInfoId" />
+            <div class="form-group">
+                <label asp-for="EventsInfo.ApplicationLimitedQty" class="control-label"></label>
+                <input asp-for="EventsInfo.ApplicationLimitedQty" class="form-control" />
+                <span asp-validation-for="EventsInfo.ApplicationLimitedQty" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreateTime" class="control-label"></label>
-                <input asp-for="CreateTime" class="form-control" />
-                <span asp-validation-for="CreateTime" class="text-danger"></span>
+                <label asp-for="EventsInfo.PersonalSite" class="control-label"></label>
+                <input asp-for="EventsInfo.PersonalSite" class="form-control" />
+                <span asp-validation-for="EventsInfo.PersonalSite" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreateUser" class="control-label"></label>
-                <input asp-for="CreateUser" class="form-control" />
-                <span asp-validation-for="CreateUser" class="text-danger"></span>
+                <label asp-for="EventsInfo.Location" class="control-label"></label>
+                <input asp-for="EventsInfo.Location" class="form-control" />
+                <span asp-validation-for="EventsInfo.Location" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UpdateTime" class="control-label"></label>
-                <input asp-for="UpdateTime" class="form-control" />
-                <span asp-validation-for="UpdateTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UpdateUser" class="control-label"></label>
-                <input asp-for="UpdateUser" class="form-control" />
-                <span asp-validation-for="UpdateUser" class="text-danger"></span>
+                <label asp-for="EventsInfo.FullIntro" class="control-label"></label>
+                <textarea asp-for="EventsInfo.FullIntro" class="form-control"></textarea>
+                <span asp-validation-for="EventsInfo.FullIntro" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

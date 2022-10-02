@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsSystem_iThome.Models
 {
@@ -18,14 +19,87 @@ namespace EventsSystem_iThome.Models
             throw new NotImplementedException();
         }
 
+        public async Task<bool> AddEventAsync(Events @event)
+        {
+            if (@event != null && @event.EventsInfo != null)
+            {
+                await _appDbContext.Events.AddAsync(@event);
+                var count = await _appDbContext.SaveChangesAsync();
+
+                return count > 0;
+            }
+            else
+            {
+                throw new Exception("Event 或 EventsInfo 資料有誤");
+            }
+        }
+
         public bool DeleteEventById(int eventId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteEventByIdAsync(Events @event)
         {
             throw new NotImplementedException();
         }
 
         public Events GetEventById(int? eventId)
         {
-            throw new NotImplementedException();
+            var @event = _appDbContext.Events.Where(
+             e => e.Id == eventId
+            ).FirstOrDefault();
+
+            if (@event != null)
+            {
+                var eventInfo = _appDbContext.EventsInfo.Where(
+                    ei => ei.EventsInfoOfEventsId == @event.Id
+                    ).FirstOrDefault();
+
+                if (eventInfo != null)
+                {
+                    @event.EventsInfo = eventInfo;
+                }
+                else
+                {
+                    throw new Exception("EventsInfo 資料取得失敗");
+                }
+            }
+            else
+            {
+                throw new Exception("Event 資料取得失敗");
+            }
+
+            return @event;
+        }
+
+        public async Task<Events> GetEventByIdAsync(int? eventId)
+        {
+            var @event = await _appDbContext.Events.Where(
+             e => e.Id == eventId
+            ).FirstOrDefaultAsync();
+
+            if (@event != null)
+            {
+                var eventInfo = await _appDbContext.EventsInfo.Where(
+                    ei => ei.EventsInfoOfEventsId == @event.Id
+                    ).FirstOrDefaultAsync();
+
+                if (eventInfo != null)
+                {
+                    @event.EventsInfo = eventInfo;
+                }
+                else
+                {
+                    throw new Exception("EventsInfo 資料取得失敗");
+                }
+            }
+            else
+            {
+                throw new Exception("Event 資料取得失敗");
+            }
+
+            return @event;
         }
 
         public IEnumerable<Events> GetEvents()
@@ -41,9 +115,33 @@ namespace EventsSystem_iThome.Models
             return events;
         }
 
-        public bool UpdateEvent(Events e)
+        public bool UpdateEvent(Events @event)
         {
-            throw new NotImplementedException();
+            if (@event != null)
+            {
+                @event.UpdateTime = DateTime.Now;
+                @event.UpdateUser = "System";
+
+                _appDbContext.Events.Update(@event);
+                _appDbContext.EventsInfo.Update(@event.EventsInfo);
+            }
+
+            var count = _appDbContext.SaveChanges();
+
+            return count > 0;
+        }
+
+        public async Task<bool> UpdateEventAsync(Events @event)
+        {
+            if (@event != null)
+            {
+                _appDbContext.Events.Update(@event);
+                _appDbContext.EventsInfo.Update(@event.EventsInfo);
+            }
+
+            var count = await _appDbContext.SaveChangesAsync();
+
+            return count > 0;
         }
     }
 }

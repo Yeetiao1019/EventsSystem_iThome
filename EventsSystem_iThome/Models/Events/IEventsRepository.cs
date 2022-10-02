@@ -9,8 +9,12 @@ namespace EventsSystem_iThome.Models
     {
         IEnumerable<Events> GetEvents();
         Events GetEventById(int? eventId);
-        bool AddEvent(Events e);
+        Task<Events> GetEventByIdAsync(int? eventId);
+        bool AddEvent(Events @event);
+        Task<bool> AddEventAsync(Events @event);
         bool DeleteEventById(int eventId);
-        bool UpdateEvent(Events e);
+        Task<bool> DeleteEventByIdAsync(Events @event);
+        bool UpdateEvent(Events @event);
+        Task<bool> UpdateEventAsync(Events @event);
     }
 }

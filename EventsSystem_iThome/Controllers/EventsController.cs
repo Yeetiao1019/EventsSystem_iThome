@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using EventsSystem_iThome.Models;
 using EventsSystem_iThome.ViewModels;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace EventsSystem_iThome.Controllers
 {
@@ -16,14 +17,14 @@ namespace EventsSystem_iThome.Controllers
         private readonly AppDbContext _context;
         private readonly IEventsRepository _eventsRepository;
 
-        public EventsController(AppDbContext context,IEventsRepository eventsRepository)
+        public EventsController(AppDbContext context, IEventsRepository eventsRepository)
         {
             _context = context;
             _eventsRepository = eventsRepository;
         }
 
         // GET: Events
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var events = _eventsRepository.GetEvents();
             EventsListViewModel EventsListViewModel = new EventsListViewModel()
@@ -76,8 +77,7 @@ namespace EventsSystem_iThome.Controllers
                 var mapper = mapperConfig.CreateMapper();
                 var events = mapper.Map<Events>(model);
 
-                _context.Add(events);
-                await _context.SaveChangesAsync();
+                await _eventsRepository.AddEventAsync(events);
 
                 return RedirectToAction("Details", events);
             }
@@ -93,12 +93,21 @@ namespace EventsSystem_iThome.Controllers
                 return NotFound();
             }
 
-            var events = await _context.Events.FindAsync(id);
-            if (events == null)
+            var model = await _eventsRepository.GetEventByIdAsync(id);
+            if (model != null)
+            {
+                var mapperConfig = new MapperConfiguration(cfg =>
+                cfg.CreateMap<Events, EventsEditViewModel>());
+
+                var mapper = mapperConfig.CreateMapper();
+                var @event = mapper.Map<EventsEditViewModel>(model);
+
+                return View(@event);
+            }
+            else
             {
                 return NotFound();
             }
-            return View(events);
         }
 
         // POST: Events/Edit/5
@@ -106,9 +115,9 @@ namespace EventsSystem_iThome.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,SaleTimeStart,SaleTimeEnd,ProgressTimeStart,ProgressTimeEnd,SimpleIntro,CategoryId,CreateTime,CreateUser,UpdateTime,UpdateUser")] EventsCreateViewModel events)
+        public async Task<IActionResult> Edit(EventsEditViewModel model)
         {
-            if (id != events.Id)
+            if (model == null || model.Id == 0)
             {
                 return NotFound();
             }
@@ -117,23 +126,33 @@ namespace EventsSystem_iThome.Controllers
             {
                 try
                 {
-                    _context.Update(events);
-                    await _context.SaveChangesAsync();
+                    var mapperConfig = new MapperConfiguration(cfg =>
+                cfg.CreateMap<EventsEditViewModel, Events>());
+
+                    var mapper = mapperConfig.CreateMapper();
+                    var @event = mapper.Map<Events>(model);
+
+                    await _eventsRepository.UpdateEventAsync(@event);
+
+                    return RedirectToAction("Details", @event);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventsExists(events.Id))
+                    if (!EventsExists(model.Id))
                     {
                         return NotFound();
                     }
                     else
                     {
-                        throw;
+                        throw new DbUpdateConcurrencyException("活動資料更新失敗");
                     }
                 }
-                return RedirectToAction(nameof(Index));
+
             }
-            return View(events);
+            else
+            {
+                return NotFound();
+            }
         }
 
         // GET: Events/Delete/5

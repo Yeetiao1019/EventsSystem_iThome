@@ -12,12 +12,27 @@ namespace EventsSystem_iThome.Models
             throw new NotImplementedException();
         }
 
+        public Task<bool> AddEventAsync(Events @event)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool DeleteEventById(int eventId)
         {
             throw new NotImplementedException();
         }
 
+        public Task<bool> DeleteEventByIdAsync(Events @event)
+        {
+            throw new NotImplementedException();
+        }
+
         public Events GetEventById(int? eventId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Events> GetEventByIdAsync(int? eventId)
         {
             throw new NotImplementedException();
         }
@@ -101,6 +116,11 @@ namespace EventsSystem_iThome.Models
         }
 
         public bool UpdateEvent(Events e)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UpdateEventAsync(Events @event)
         {
             throw new NotImplementedException();
         }
