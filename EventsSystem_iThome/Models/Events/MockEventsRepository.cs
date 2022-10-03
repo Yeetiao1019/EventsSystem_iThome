@@ -22,7 +22,7 @@ namespace EventsSystem_iThome.Models
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteEventByIdAsync(Events @event)
+        public Task<bool> DeleteEventAsync(Events @event)
         {
             throw new NotImplementedException();
         }

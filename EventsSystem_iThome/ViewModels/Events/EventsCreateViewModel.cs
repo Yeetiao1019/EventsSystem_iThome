@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EventsSystem_iThome.ViewModels
 {
-    public class EventsCreateViewModel
+    public class EventsCreateViewModel : EventsBaseViewModel
     {
         public int Id { get; set; }  
         [Required]

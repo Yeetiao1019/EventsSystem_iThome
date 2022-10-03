@@ -39,9 +39,17 @@ namespace EventsSystem_iThome.Models
             throw new NotImplementedException();
         }
 
-        public Task<bool> DeleteEventByIdAsync(Events @event)
+        public async Task<bool> DeleteEventAsync(Events @event)
         {
-            throw new NotImplementedException();
+            if(@event != null)
+            {
+                _appDbContext.Events.Remove(@event);
+                var count = await _appDbContext.SaveChangesAsync();
+
+                return count > 0;
+            }
+
+            return false;
         }
 
         public Events GetEventById(int? eventId)

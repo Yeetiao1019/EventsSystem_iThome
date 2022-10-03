@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EventsSystem_iThome.ViewModels
 {
-    public class EventsListViewModel
+    public class EventsListViewModel : EventsBaseViewModel
     {
         public IEnumerable<Events> EventsCollection { get; set; }
     }

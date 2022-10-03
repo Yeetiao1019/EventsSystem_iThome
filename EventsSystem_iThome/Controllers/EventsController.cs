@@ -163,25 +163,57 @@ namespace EventsSystem_iThome.Controllers
                 return NotFound();
             }
 
-            var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (events == null)
+            var model = await _eventsRepository.GetEventByIdAsync(id);
+
+            var mapperConfig = new MapperConfiguration(cfg =>
+               cfg.CreateMap<Events, EventsDeleteViewModel>());
+
+            var mapper = mapperConfig.CreateMapper();
+            var @event = mapper.Map<EventsDeleteViewModel>(model);
+
+            if (@event == null)
             {
                 return NotFound();
             }
 
-            return View(events);
+            return View(@event);
         }
 
         // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(EventsDeleteViewModel model)
         {
-            var events = await _context.Events.FindAsync(id);
-            _context.Events.Remove(events);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var mapperConfig = new MapperConfiguration(cfg =>
+                cfg.CreateMap<EventsDeleteViewModel, Events>());
+
+                    var mapper = mapperConfig.CreateMapper();
+                    var @event = mapper.Map<Events>(model);
+
+                    await _eventsRepository.DeleteEventAsync(@event);
+
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EventsExists(model.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw new DbUpdateConcurrencyException("活動資料刪除失敗");
+                    }
+                }
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         private bool EventsExists(int id)

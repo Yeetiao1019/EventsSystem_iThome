@@ -1,39 +1,39 @@
-﻿using System;
+﻿using EventsSystem_iThome.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.Xml.Linq;
+using System;
+using EventsSystem_iThome.Enum;
 
-namespace EventsSystem_iThome.Models
+namespace EventsSystem_iThome.ViewModels
 {
-    public class Events
+    public class EventsBaseViewModel
     {
-        public int Id { get; set; }  
-        [Required]
+        public int Id { get; set; }
         [Display(Name = "活動名稱")]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "最少輸入 5 字元，最多輸入 50 字元")]
         public string Title { get; set; }
-        [Column(TypeName = "datetime2")]
+        [Display(Name = "票券販賣起始時間")]
         public DateTime SaleTimeStart { get; set; }
-        [Column(TypeName = "datetime2")]
+        [Display(Name = "票券販賣結束時間")]
         public DateTime SaleTimeEnd { get; set; }
-        [Column(TypeName = "datetime2")]
+        [Display(Name = "活動開始時間")]
         public DateTime ProgressTimeStart { get; set; }
-        [Column(TypeName = "datetime2")]
+        [Display(Name = "活動結束時間")]
         public DateTime ProgressTimeEnd { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "最少輸入 5 字元，最多輸入 50 字元")]
+        [Display(Name = "活動簡介")]
         public string SimpleIntro { get; set; }
         [Display(Name = "活動類型")]
+        public EventsCategoryEnum EventsCategoryEnum { get; set; }
         public int CategoryId { get; set; }
-        [Column(TypeName = "datetime2")]
+        [Display(Name = "資料建立時間")]
         public DateTime CreateTime { get; set; }
-        [StringLength(100)]
+        [Display(Name = "資料建立者")]
         public string CreateUser { get; set; }
-        [Column(TypeName = "datetime2")]
+        [Display(Name = "資料修改時間")]
         public DateTime UpdateTime { get; set; }
-        [StringLength(100)]
+        [Display(Name = "資料修改者")]
         public string UpdateUser { get; set; }
 
         public EventsInfo EventsInfo { get; set; }  // 一對一
