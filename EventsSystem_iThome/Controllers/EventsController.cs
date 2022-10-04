@@ -9,17 +9,23 @@ using EventsSystem_iThome.Models;
 using EventsSystem_iThome.ViewModels;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using EventsSystem_iThome.Services;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EventsSystem_iThome.Controllers
 {
     public class EventsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IWebHostEnvironment _env;
         private readonly IEventsRepository _eventsRepository;
 
-        public EventsController(AppDbContext context, IEventsRepository eventsRepository)
+        public EventsController(AppDbContext context, IEventsRepository eventsRepository, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
             _eventsRepository = eventsRepository;
         }
 
@@ -68,16 +74,30 @@ namespace EventsSystem_iThome.Controllers
         {
             if (ModelState.IsValid)
             {
+                var uploadValue = EventsImageUploadService.UploadedFile(model, _env);
+
+                IFormFile UploadImageFile = uploadValue.IFormFile;
                 model.CategoryId = (int)model.EventsCategoryEnum;
                 model.CreateUser = "admin";
 
+                EventsImage EventsImageModel = new EventsImage
+                {
+                    ImageFileName = uploadValue.FileName,
+                    ImageFilePath = uploadValue.FilePath,
+                    ImageFileSize = (int)UploadImageFile.Length,
+                    CreateTime = DateTime.Now,
+                    CreateUser = "System"
+                };
+
+                ICollection<EventsImage> EventsImages = new List<EventsImage>();
+                EventsImages.Add(EventsImageModel);
+
                 var mapperConfig = new MapperConfiguration(cfg =>
                 cfg.CreateMap<EventsCreateViewModel, Events>());
-
                 var mapper = mapperConfig.CreateMapper();
                 var events = mapper.Map<Events>(model);
-
-                await _eventsRepository.AddEventAsync(events);
+                
+                await _eventsRepository.AddEventWithEventsImageAsync(events, EventsImageModel);
 
                 return RedirectToAction("Details", events);
             }

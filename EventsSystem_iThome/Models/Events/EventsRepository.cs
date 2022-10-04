@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,12 @@ namespace EventsSystem_iThome.Models
     public class EventsRepository : IEventsRepository
     {
         private readonly AppDbContext _appDbContext;
+        private readonly IEventsImageRepository _eventsImageRepository;
 
-        public EventsRepository(AppDbContext appDbContext)
+        public EventsRepository(AppDbContext appDbContext, IEventsImageRepository eventsImageRepository)
         {
             this._appDbContext = appDbContext;
+            _eventsImageRepository = eventsImageRepository;
         }
         public bool AddEvent(Events e)
         {
@@ -27,6 +30,20 @@ namespace EventsSystem_iThome.Models
                 var count = await _appDbContext.SaveChangesAsync();
 
                 return count > 0;
+            }
+            else
+            {
+                throw new Exception("Event 或 EventsInfo 資料有誤");
+            }
+        }
+
+        public async Task<bool> AddEventWithEventsImageAsync(Events @event, EventsImage eventsImage)
+        {
+            if (await AddEventAsync(@event))
+            {
+                eventsImage.EventsId = @event.Id;
+
+                return await _eventsImageRepository.AddEventImageAsync(eventsImage);
             }
             else
             {

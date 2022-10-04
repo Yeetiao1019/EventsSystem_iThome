@@ -10,7 +10,7 @@
 *.userosscache
 *.sln.docstates
 appsettings.Development.json
-wwwroot/images/[Uu]pload/
+/EventsSystem_iThome/wwwroot/images/Upload/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -340,3 +340,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+

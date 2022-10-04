@@ -124,5 +124,10 @@ namespace EventsSystem_iThome.Models
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> AddEventWithEventsImageAsync(Events @event, EventsImage eventsImage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace EventsSystem_iThome
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IEventsRepository, EventsRepository>();
+            services.AddScoped<IEventsImageRepository, EventsImageRepository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

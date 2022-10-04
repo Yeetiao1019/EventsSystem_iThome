@@ -12,6 +12,7 @@ namespace EventsSystem_iThome.Models
         Task<Events> GetEventByIdAsync(int? eventId);
         bool AddEvent(Events @event);
         Task<bool> AddEventAsync(Events @event);
+        Task<bool> AddEventWithEventsImageAsync(Events @event, EventsImage eventsImage);
         bool DeleteEventById(int eventId);
         Task<bool> DeleteEventAsync(Events @event);
         bool UpdateEvent(Events @event);
