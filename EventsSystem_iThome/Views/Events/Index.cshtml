@@ -50,6 +50,17 @@
         {
             <tr>
                 <td>
+                    @if (item.EventsImage.Where(ei => ei.EventsId == item.Id).FirstOrDefault() != null)
+                    {
+                        <img src="~/images/Upload/Events/@item.EventsImage.Where(ei => ei.EventsId == item.Id).FirstOrDefault().ImageFileName"
+                     asp-append-version="true" alt="..." width="500" height="300" />
+                    }
+                    else
+                    {
+                        <img src="~/images/logo.png" alt="...">
+                    }
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>

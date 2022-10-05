@@ -130,11 +130,16 @@ namespace EventsSystem_iThome.Models
         public IEnumerable<Events> GetEvents()
         {
             var events = _appDbContext.Events.ToList();
+
             foreach (var item in events)
             {
                 item.EventsInfo = _appDbContext.EventsInfo.Where(
                     ei => ei.EventsInfoOfEventsId == item.Id
                     ).FirstOrDefault();
+
+                item.EventsImage = _appDbContext.EventsImage.Where(
+                    ei => ei.EventsId == item.Id
+                    ).ToList();
             }
 
             return events;

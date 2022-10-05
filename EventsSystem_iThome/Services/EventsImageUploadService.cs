@@ -23,7 +23,7 @@ namespace EventsSystem_iThome.Services
                 FileName = Guid.NewGuid().ToString() + "_" + model.FormEventsImage.FileName;
                 FilePath = Path.Combine(UploadFolder, FileName);
 
-                using (var fileStream = new FileStream(FileName, FileMode.Create))
+                using (var fileStream = new FileStream(FilePath, FileMode.Create))
                 {
                     model.FormEventsImage.CopyTo(fileStream);
                 }
