@@ -38,5 +38,6 @@ namespace EventsSystem_iThome.Models
 
         public EventsInfo EventsInfo { get; set; }  // 一對一
         public ICollection<EventsImage> EventsImage { get; set; }   // 一對多
+        public ICollection<EventsEnroll> EventsEnroll { get; set; }   // 一對多
     }
 }

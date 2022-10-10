@@ -13,9 +13,11 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using EventsSystem_iThome.Services;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventsSystem_iThome.Controllers
 {
+    [Authorize]
     public class EventsController : Controller
     {
         private readonly AppDbContext _context;
@@ -30,6 +32,7 @@ namespace EventsSystem_iThome.Controllers
         }
 
         // GET: Events
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var events = _eventsRepository.GetEvents();
@@ -59,7 +62,7 @@ namespace EventsSystem_iThome.Controllers
             return View(events);
         }
 
-        // GET: Events/Create
+        // GET: Events/Create        
         public IActionResult Create()
         {
             return View();
