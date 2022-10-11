@@ -65,6 +65,24 @@ namespace EventsSystem_iThome.Controllers
                 return NotFound();
             }
 
+            EventsApplyServices EventsApplyServices = new EventsApplyServices(_eventsRepository);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!await EventsApplyServices.IsApplicationLimitedQtyFull(@event) && EventsApplyServices.IsInEventsSalesTime(@event))
+            {
+                if (await EventsApplyServices.IsUserAlreadyEnroll((int)id, userId))
+                {
+                    ViewData["EnrollBtn"] = 2;
+                }
+                else
+                {
+                    ViewData["EnrollBtn"] = 1;
+                }
+            }
+            else
+            {
+                ViewData["EnrollBtn"] = 3;
+            }
+
             return View(@event);
         }
 
@@ -105,7 +123,7 @@ namespace EventsSystem_iThome.Controllers
                 cfg.CreateMap<EventsCreateViewModel, Events>());
                 var mapper = mapperConfig.CreateMapper();
                 var events = mapper.Map<Events>(model);
-                
+
                 await _eventsRepository.AddEventWithEventsImageAsync(events, EventsImageModel);
 
                 return RedirectToAction("Details", events);
@@ -258,15 +276,16 @@ namespace EventsSystem_iThome.Controllers
                     EventsApplyServices EventsApplyServices = new EventsApplyServices(_eventsRepository);
                     var isInEventsSalesTime = EventsApplyServices.IsInEventsSalesTime(Event);
                     var isApplicationLimitedQtyFull = await EventsApplyServices.IsApplicationLimitedQtyFull(Event);
-                    var useId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
                     EventsEnroll EventsEnroll = new EventsEnroll()
                     {
                         Events = Event,
-                        ApplicationUserId = useId
+                        ApplicationUserId = userId
                     };
 
-                    if (isInEventsSalesTime == true && isApplicationLimitedQtyFull == false)
+                    if (isInEventsSalesTime == true && isApplicationLimitedQtyFull == false
+                        && !await EventsApplyServices.IsUserAlreadyEnroll((int)id, userId))
                     {
                         await _eventsRepository.SaveUserInfoToEventsEnrollAsync(EventsEnroll);
                         TempData["Message"] = "報名成功";
@@ -284,6 +303,48 @@ namespace EventsSystem_iThome.Controllers
             catch (Exception)
             {
                 throw new Exception("報名失敗");
+            }
+
+            return RedirectToAction("Details", Event);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelEventsEnroll(int? id)
+        {
+            Events Event = new Events();
+            try
+            {
+                if (id != null)
+                {
+                    Event = await _eventsRepository.GetEventByIdAsync(id);
+                    EventsApplyServices EventsApplyServices = new EventsApplyServices(_eventsRepository);
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                    EventsEnroll EventsEnroll = new EventsEnroll()
+                    {
+                        Events = Event,
+                        ApplicationUserId = userId
+                    };
+
+                    if (Event != null && await EventsApplyServices.IsUserAlreadyEnroll((int)id, userId))
+                    {
+                        await _eventsRepository.DeleteUserInfoFromEventsEnrollAsync(EventsEnroll);
+                        TempData["Message"] = "取消報名成功";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "取消報名失敗";
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("取消報名失敗");
             }
 
             return RedirectToAction("Details", Event);

@@ -144,5 +144,10 @@ namespace EventsSystem_iThome.Models
         {
             throw new NotImplementedException();
         }
+
+        public Task<ICollection<EventsEnroll>> GetEventsEnrollsByEventIdAsync(int eventId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

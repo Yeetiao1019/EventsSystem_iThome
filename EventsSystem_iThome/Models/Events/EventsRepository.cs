@@ -184,7 +184,10 @@ namespace EventsSystem_iThome.Models
 
         public async Task<bool> DeleteUserInfoFromEventsEnrollAsync(EventsEnroll eventsEnroll)
         {
-            _appDbContext.EventsEnroll.Remove(eventsEnroll);
+            var delEventsEnroll = await _appDbContext.EventsEnroll.Where(
+                ee => ee.Events == eventsEnroll.Events && ee.ApplicationUserId == eventsEnroll.ApplicationUserId
+                ).FirstOrDefaultAsync();
+            _appDbContext.EventsEnroll.Remove(delEventsEnroll);
             var count = await _appDbContext.SaveChangesAsync();
 
             return count > 0;
@@ -197,6 +200,15 @@ namespace EventsSystem_iThome.Models
                 ).CountAsync();
 
             return qty;
+        }
+
+        public async Task<ICollection<EventsEnroll>> GetEventsEnrollsByEventIdAsync(int eventId)
+        {
+            var eventsEnrolls = await _appDbContext.EventsEnroll.Where(
+                ee => ee.Events.Id == eventId
+                ).ToListAsync();
+
+            return eventsEnrolls;
         }
     }
 }

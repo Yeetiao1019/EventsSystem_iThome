@@ -22,5 +22,6 @@ namespace EventsSystem_iThome.Models
         Task<bool> SaveUserInfoToEventsEnrollAsync(EventsEnroll eventsEnroll);
         Task<bool> DeleteUserInfoFromEventsEnrollAsync(EventsEnroll eventsEnroll);
         Task<int> GetApplicateQtyByEventIdAsync(int eventId);
+        Task<ICollection<EventsEnroll>> GetEventsEnrollsByEventIdAsync(int eventId);
     }
 }
