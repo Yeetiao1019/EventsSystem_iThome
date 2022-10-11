@@ -40,5 +40,6 @@ namespace EventsSystem_iThome.Models
         public DbSet<EventsCategory> EventsCategory { get; set; }
         public DbSet<EventsImage> EventsImage { get; set; }
         public DbSet<EventsImageUseType> EventsImageUseType { get; set; }
+        public DbSet<EventsEnroll> EventsEnroll { get; set; }
     }
 }

@@ -17,5 +17,10 @@ namespace EventsSystem_iThome.Models
         Task<bool> DeleteEventAsync(Events @event);
         bool UpdateEvent(Events @event);
         Task<bool> UpdateEventAsync(Events @event);
+
+        //對 EventsEnroll 的 Function
+        Task<bool> SaveUserInfoToEventsEnrollAsync(EventsEnroll eventsEnroll);
+        Task<bool> DeleteUserInfoFromEventsEnrollAsync(EventsEnroll eventsEnroll);
+        Task<int> GetApplicateQtyByEventIdAsync(int eventId);
     }
 }

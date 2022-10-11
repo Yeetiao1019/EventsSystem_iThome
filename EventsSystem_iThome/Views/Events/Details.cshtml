@@ -5,80 +5,86 @@
 }
 
 <h1>Details</h1>
+<form asp-action="EventsEnroll" method="post" style="display:inline;">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <h4>Events</h4>
+        <hr />
+        <span style="color:lightgreen;">@TempData["Message"]</span>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SaleTimeStart)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SaleTimeStart)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SaleTimeEnd)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SaleTimeEnd)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProgressTimeStart)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProgressTimeStart)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ProgressTimeEnd)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ProgressTimeEnd)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.SimpleIntro)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.SimpleIntro)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CategoryId)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreateTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreateTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.CreateUser)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.CreateUser)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UpdateTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UpdateTime)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.UpdateUser)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.UpdateUser)
+            </dd>
+        </dl>
+    </div>
+    <div>
 
-<div>
-    <h4>Events</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SaleTimeStart)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SaleTimeStart)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SaleTimeEnd)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SaleTimeEnd)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProgressTimeStart)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProgressTimeStart)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ProgressTimeEnd)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ProgressTimeEnd)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SimpleIntro)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SimpleIntro)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreateUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreateUser)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdateTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdateTime)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UpdateUser)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UpdateUser)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+        <input type="submit" value="報名" class="btn btn-primary" />
+        |
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</form>

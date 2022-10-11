@@ -12,7 +12,7 @@ namespace EventsSystem_iThome.Models
         [StringLength(50)]
         public string ApplicationUserId { get; set; }
         [Column(TypeName = "datetime2")]
-        public DateTime EnrollTime { get; set; }
+        public DateTime EnrollTime { get; set; } = DateTime.Now;
 
         public Events Events { get; set; }
         public ICollection<ApplicationUser> ApplicationUser { get; set; }

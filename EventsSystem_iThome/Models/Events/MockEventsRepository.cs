@@ -129,5 +129,20 @@ namespace EventsSystem_iThome.Models
         {
             throw new NotImplementedException();
         }
+
+        public Task<bool> SaveUserInfoToEventsEnrollAsync(EventsEnroll eventsEnroll)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteUserInfoFromEventsEnrollAsync(EventsEnroll eventsEnroll)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> GetApplicateQtyByEventIdAsync(int eventId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -37,8 +37,8 @@ namespace EventsSystem_iThome
         .AddDefaultUI()
         .AddDefaultTokenProviders();
 
+            services.AddHttpContextAccessor();
             services.AddDatabaseDeveloperPageExceptionFilter();
-
             services.AddControllersWithViews();
         }
 

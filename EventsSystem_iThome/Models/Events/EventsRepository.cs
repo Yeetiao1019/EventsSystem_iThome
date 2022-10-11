@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EventsSystem_iThome.Models
 {
     public class EventsRepository : IEventsRepository
-    {
+    { 
         private readonly AppDbContext _appDbContext;
         private readonly IEventsImageRepository _eventsImageRepository;
 
@@ -169,9 +169,34 @@ namespace EventsSystem_iThome.Models
                 _appDbContext.EventsInfo.Update(@event.EventsInfo);
             }
 
+            var count = await _appDbContext.SaveChangesAsync(); 
+
+            return count > 0;
+        }
+
+        public async Task<bool> SaveUserInfoToEventsEnrollAsync(EventsEnroll eventsEnroll)
+        {
+            _appDbContext.EventsEnroll.Add(eventsEnroll);
             var count = await _appDbContext.SaveChangesAsync();
 
             return count > 0;
+        }
+
+        public async Task<bool> DeleteUserInfoFromEventsEnrollAsync(EventsEnroll eventsEnroll)
+        {
+            _appDbContext.EventsEnroll.Remove(eventsEnroll);
+            var count = await _appDbContext.SaveChangesAsync();
+
+            return count > 0;
+        }
+
+        public async Task<int> GetApplicateQtyByEventIdAsync(int eventId)
+        {
+            var qty = await _appDbContext.EventsEnroll.Where(
+                ee => ee.Events.Id == eventId
+                ).CountAsync();
+
+            return qty;
         }
     }
 }

@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Http;
 using EventsSystem_iThome.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace EventsSystem_iThome.Controllers
 {
@@ -23,12 +25,16 @@ namespace EventsSystem_iThome.Controllers
         private readonly AppDbContext _context;
         private readonly IWebHostEnvironment _env;
         private readonly IEventsRepository _eventsRepository;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventsController(AppDbContext context, IEventsRepository eventsRepository, IWebHostEnvironment env)
+        public EventsController(AppDbContext context, IEventsRepository eventsRepository,
+            IWebHostEnvironment env,
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _env = env;
             _eventsRepository = eventsRepository;
+            _userManager = userManager;
         }
 
         // GET: Events
@@ -45,6 +51,7 @@ namespace EventsSystem_iThome.Controllers
         }
 
         // GET: Events/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,14 +59,13 @@ namespace EventsSystem_iThome.Controllers
                 return NotFound();
             }
 
-            var events = await _context.Events
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (events == null)
+            var @event = await _eventsRepository.GetEventByIdAsync(id);
+            if (@event == null)
             {
                 return NotFound();
             }
 
-            return View(events);
+            return View(@event);
         }
 
         // GET: Events/Create        
@@ -237,6 +243,50 @@ namespace EventsSystem_iThome.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EventsEnroll(int? id)
+        {
+            Events Event = new Events();
+            try
+            {
+                if (id != null)
+                {
+                    Event = await _eventsRepository.GetEventByIdAsync(id);
+                    EventsApplyServices EventsApplyServices = new EventsApplyServices(_eventsRepository);
+                    var isInEventsSalesTime = EventsApplyServices.IsInEventsSalesTime(Event);
+                    var isApplicationLimitedQtyFull = await EventsApplyServices.IsApplicationLimitedQtyFull(Event);
+                    var useId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                    EventsEnroll EventsEnroll = new EventsEnroll()
+                    {
+                        Events = Event,
+                        ApplicationUserId = useId
+                    };
+
+                    if (isInEventsSalesTime == true && isApplicationLimitedQtyFull == false)
+                    {
+                        await _eventsRepository.SaveUserInfoToEventsEnrollAsync(EventsEnroll);
+                        TempData["Message"] = "報名成功";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "報名失敗";
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("報名失敗");
+            }
+
+            return RedirectToAction("Details", Event);
         }
 
         private bool EventsExists(int id)
