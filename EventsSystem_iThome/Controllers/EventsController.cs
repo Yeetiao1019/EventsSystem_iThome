@@ -83,6 +83,18 @@ namespace EventsSystem_iThome.Controllers
                 ViewData["EnrollBtn"] = 3;
             }
 
+            var applicationQty = await _eventsRepository.GetApplicateQtyByEventIdAsync((int)id);    //顯示已報名人數
+            ViewData["ApplicateQty"] = applicationQty;
+
+            if(userId != @event.CreateUser)
+            {
+                ViewData["ShowEditBtn"] = false;
+            }
+            else
+            {
+                ViewData["ShowEditBtn"] = true;
+            }
+
             return View(@event);
         }
 
