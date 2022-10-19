@@ -149,5 +149,10 @@ namespace EventsSystem_iThome.Models
         {
             throw new NotImplementedException();
         }
+
+        public Task<IEnumerable<Events>> GetTheNewestEventsAsync(int count)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

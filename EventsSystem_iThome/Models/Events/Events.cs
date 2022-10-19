@@ -28,7 +28,7 @@ namespace EventsSystem_iThome.Models
         [Display(Name = "活動類型")]
         public int CategoryId { get; set; }
         [Column(TypeName = "datetime2")]
-        public DateTime CreateTime { get; set; }
+        public DateTime CreateTime { get; set; } = DateTime.Now;
         [StringLength(100)]
         public string CreateUser { get; set; }
         [Column(TypeName = "datetime2")]

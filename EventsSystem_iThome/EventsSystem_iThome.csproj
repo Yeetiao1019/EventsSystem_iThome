@@ -26,6 +26,14 @@
 
   <ItemGroup>
     <Folder Include="Models\EventsCategory\" />
+    <Folder Include="Views\Shared\Components\" />
+    <Folder Include="Views\Shared\Components\ShowEventsCarousel\" />
+    <Folder Include="ViewComponents\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Views\Shared\Components\" />
+    <None Remove="Views\Shared\Components\ShowEventsCarousel\" />
+    <None Remove="ViewComponents\" />
+  </ItemGroup>
 </Project>

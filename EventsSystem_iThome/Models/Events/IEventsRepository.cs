@@ -18,6 +18,9 @@ namespace EventsSystem_iThome.Models
         bool UpdateEvent(Events @event);
         Task<bool> UpdateEventAsync(Events @event);
 
+        // View Components 使用
+        public Task<IEnumerable<Events>> GetTheNewestEventsAsync(int count);
+
         //對 EventsEnroll 的 Function
         Task<bool> SaveUserInfoToEventsEnrollAsync(EventsEnroll eventsEnroll);
         Task<bool> DeleteUserInfoFromEventsEnrollAsync(EventsEnroll eventsEnroll);

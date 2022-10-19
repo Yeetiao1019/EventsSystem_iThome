@@ -10,7 +10,7 @@ namespace EventsSystem_iThome.Services
     {
         public static (IFormFile IFormFile, string FileName, string FilePath) UploadedFile(EventsCreateViewModel model, IWebHostEnvironment webHostEnvironment)
         {
-            string UploadFolder = Path.Combine(webHostEnvironment.WebRootPath, @"images\Upload\Events");
+            string UploadFolder = Path.Combine(webHostEnvironment.WebRootPath, @$"images{Path.DirectorySeparatorChar}Upload{Path.DirectorySeparatorChar}Events");
             string FileName = string.Empty;
             string FilePath = string.Empty;
 

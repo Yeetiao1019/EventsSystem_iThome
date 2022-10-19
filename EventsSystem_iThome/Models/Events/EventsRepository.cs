@@ -210,5 +210,24 @@ namespace EventsSystem_iThome.Models
 
             return eventsEnrolls;
         }
+
+        public async Task<IEnumerable<Events>> GetTheNewestEventsAsync(int count)
+        {
+            string SqlScript = $"EXECUTE dbo.GetTheNewestEvents @Count = {count}";
+            var events = await _appDbContext.Events.FromSqlRaw(SqlScript).ToListAsync();
+
+            foreach (var item in events)
+            {
+                item.EventsInfo = _appDbContext.EventsInfo.Where(
+                    ei => ei.EventsInfoOfEventsId == item.Id
+                    ).FirstOrDefault();
+
+                item.EventsImage = _appDbContext.EventsImage.Where(
+                    ei => ei.EventsId == item.Id
+                    ).ToList();
+            }
+
+            return events;
+        }
     }
 }
